@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. TẢI DỮ LIỆU THỰC ĐƠN
+    // 2. TẢI DỮ LIỆU THỰC ĐƠN (Có chống cache)
     async function loadMenuData() {
         const menuGrid = document.getElementById('menu-grid');
         if (!menuGrid) return;
@@ -27,19 +27,22 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!res.ok) throw new Error(`Lỗi HTTP: ${res.status}`);
             const data = await res.json();
             
-            if (!data.items || !Array.isArray(data.items)) {
-                throw new Error("Cấu trúc file menu.json không đúng (thiếu mảng 'items').");
-            }
-
             menuGrid.innerHTML = '';
             data.items.forEach(item => {
                 if (item.is_visible === false) return;
                 const div = document.createElement('div');
                 div.className = 'menu-item';
                 div.dataset.category = item.category;
+                
+                // Xử lý đường dẫn ảnh an toàn (nếu CMS lưu thiếu /img/ thì tự bù vào)
+                let imgSrc = item.image;
+                if (imgSrc && !imgSrc.startsWith('http') && !imgSrc.startsWith('img/')) {
+                    imgSrc = 'img/uploads/' + imgSrc; 
+                }
+
                 div.innerHTML = `
                     <div class="menu-item-img">
-                        <img src="${item.image}" alt="${item.name}" loading="lazy">
+                        <img src="${imgSrc}" alt="${item.name}" loading="lazy" onerror="this.src='img/hero.webp'">
                     </div>
                     <div class="menu-item-info">
                         <div class="menu-item-header">
@@ -52,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 menuGrid.appendChild(div);
             });
             setupMenuFilter();
-            console.log("✅ Tải dữ liệu Thực đơn thành công!");
         } catch (error) { 
             console.error('❌ Lỗi tải menu:', error); 
         }
@@ -80,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 3. TẢI DỮ LIỆU TRANG CÂU CHUYỆN
+    // 3. TẢI TRANG CÂU CHUYỆN (Có chống cache)
     async function loadStoryData() {
         if (!document.getElementById('story-heading')) return;
         try {
@@ -106,12 +108,16 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.story_video) {
                 mediaContainer.innerHTML = `<video src="${data.story_video}" controls style="width:100%; border-radius:var(--border-radius);"></video>`;
             } else if (data.story_image) {
-                mediaContainer.innerHTML = `<img src="${data.story_image}" alt="Câu chuyện KONDAE" loading="lazy">`;
+                let imgSrc = data.story_image;
+                if (!imgSrc.startsWith('http') && !imgSrc.startsWith('img/')) imgSrc = 'img/uploads/' + imgSrc;
+                mediaContainer.innerHTML = `<img src="${imgSrc}" alt="Câu chuyện KONDAE" loading="lazy">`;
             }
             const teamContainer = document.getElementById('team-image-container');
             teamContainer.innerHTML = '';
             if (data.team_image) {
-                teamContainer.innerHTML = `<img src="${data.team_image}" alt="Đội ngũ KONDAE" loading="lazy">`;
+                let imgSrc = data.team_image;
+                if (!imgSrc.startsWith('http') && !imgSrc.startsWith('img/')) imgSrc = 'img/uploads/' + imgSrc;
+                teamContainer.innerHTML = `<img src="${imgSrc}" alt="Đội ngũ KONDAE" loading="lazy">`;
             }
             const commitmentList = document.getElementById('commitment-list');
             commitmentList.innerHTML = '';
@@ -123,13 +129,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     commitmentList.appendChild(li);
                 });
             }
-            console.log("✅ Tải dữ liệu Câu chuyện thành công!");
         } catch (error) { 
             console.error('❌ Lỗi tải câu chuyện:', error); 
         }
     }
 
-    // 4. TẢI DỮ LIỆU KHUYẾN MÃI
+    // 4. TẢI KHUYẾN MÃI (Có chống cache)
     async function loadPromotionData() {
         const container = document.getElementById('promotion-container');
         if (!container) return;
@@ -139,10 +144,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!res.ok) throw new Error(`Lỗi HTTP: ${res.status}`);
             const data = await res.json();
             
-            if (!data.items || !Array.isArray(data.items)) {
-                throw new Error("Cấu trúc file promotions.json không đúng (thiếu mảng 'items').");
-            }
-
             const activePromos = data.items.filter(promo => promo.is_active === true);
 
             if (activePromos.length > 0) {
@@ -155,17 +156,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         <a href="contact.html" class="btn btn-secondary">Đặt Bàn Ngay</a>
                     </div>
                 `;
-                console.log("✅ Tải dữ liệu Khuyến mãi thành công!");
             } else {
                 container.parentElement.style.display = 'none';
-                console.log("ℹ️ Không có khuyến mãi nào đang bật.");
             }
         } catch (error) { 
             console.error('❌ Lỗi tải khuyến mãi:', error); 
         }
     }
 
-    // 5. TẢI GALLERY
+    // 5. TẢI GALLERY (Có chống cache)
     async function loadGalleryData() {
         const galleryGrid = document.getElementById('gallery-grid');
         if (!galleryGrid) return;
@@ -178,38 +177,37 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.items) {
                 data.items.forEach(item => {
                     const wrapper = document.createElement('div');
+                    let mediaSrc = item.media;
+                    if (!mediaSrc.startsWith('http') && !mediaSrc.startsWith('img/')) mediaSrc = 'img/uploads/' + mediaSrc;
+
                     if (item.media_type === 'video') {
-                        wrapper.innerHTML = `<video src="${item.media}" controls style="width:100%; height:300px; object-fit:cover; border-radius:var(--border-radius);"></video>`;
+                        wrapper.innerHTML = `<video src="${mediaSrc}" controls style="width:100%; height:300px; object-fit:cover; border-radius:var(--border-radius);"></video>`;
                     } else {
-                        wrapper.innerHTML = `<img src="${item.media}" alt="${item.title}" loading="lazy">`;
+                        wrapper.innerHTML = `<img src="${mediaSrc}" alt="${item.title}" loading="lazy">`;
                     }
                     galleryGrid.appendChild(wrapper);
                 });
             }
-            console.log("✅ Tải dữ liệu Gallery thành công!");
         } catch (error) { 
             console.error('❌ Lỗi tải gallery:', error); 
         }
     }
 
-    // 6. XỬ LÝ FORM ĐẶT HÀNG (Giữ nguyên)
+    // 6. XỬ LÝ FORM ĐẶT HÀNG
     const SDT_ZALO = '0347520628';
     const LINK_FACEBOOK = 'https://www.facebook.com/share/1Ja61uugF7/?mibextid=wwXIfr';
 
     function openZalo(phone) {
         const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        if (isMobile) {
-            window.open(`https://zalo.me/${phone}`, '_blank');
-        } else {
-            const deepLink = `zalo://conversation?phone=${phone}`;
-            const webFallback = `https://zalo.me/${phone}`;
+        if (isMobile) { window.open(`https://zalo.me/${phone}`, '_blank'); } 
+        else {
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
-            iframe.src = deepLink;
+            iframe.src = `zalo://conversation?phone=${phone}`;
             document.body.appendChild(iframe);
             setTimeout(() => {
                 if (document.body.contains(iframe)) document.body.removeChild(iframe);
-                window.open(webFallback, '_blank');
+                window.open(`https://zalo.me/${phone}`, '_blank');
             }, 2000);
         }
     }
@@ -299,7 +297,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Kích hoạt tải dữ liệu
     loadMenuData();
     loadStoryData();
     loadGalleryData();

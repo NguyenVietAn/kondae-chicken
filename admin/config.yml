@@ -3,6 +3,7 @@ backend:
   repo: NguyenVietAn/kondae-chicken
   branch: main
 
+# Sửa lại đường dẫn tương đối (không có dấu / ở đầu) để GitHub Pages đọc được
 media_folder: "img/uploads"
 public_folder: "img/uploads"
 
