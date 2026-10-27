@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Câu Chuyện Thương Hiệu - KONDAE CHICKEN</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-banner">
+            <a href="index.html"><img src="img/logo.png" alt="KONDAE CHICKEN Logo"></a>
+        </div>
+        <div class="nav-banner">
+            <div class="container nav-container">
+                <nav class="main-nav-desktop">
+                    <a href="index.html">Trang Chủ</a>
+                    <a href="menu.html">Thực Đơn</a>
+                    <a href="story.html" class="active">Câu Chuyện</a>
+                    <a href="contact.html">Liên Hệ & Đặt Bàn</a>
+                    <a href="admin/" class="admin-link" title="Đăng nhập quản trị">🔑 Quản Trị</a>
+                </nav>
+                <button class="menu-toggle" aria-label="Mở menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+        <nav class="mobile-nav-overlay">
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="menu.html">Thực Đơn</a></li>
+                <li><a href="story.html" class="active">Câu Chuyện</a></li>
+                <li><a href="contact.html">Liên Hệ & Đặt Bàn</a></li>
+                <li><a href="admin/" style="font-size: 1.2rem; opacity: 0.7;">🔑 Đăng Nhập Quản Trị</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 id="story-hero-title"></h1>
+            <p id="story-hero-subtitle"></p>
+        </div>
+    </section>
+
+    <section class="story-main section-padding">
+        <div class="container">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2 id="story-heading"></h2>
+                    <div id="story-paragraphs"></div>
+                </div>
+                <div class="story-image" id="story-media-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="philosophy section-padding bg-cream">
+        <div class="container">
+            <h2 class="section-title">Triết Lý Kinh Doanh</h2>
+            <p class="section-subtitle">Ba giá trị cốt lõi định hình mọi hoạt động của chúng tôi</p>
+            
+            <div class="philosophy-grid">
+                <div class="philosophy-item">
+                    <div class="philosophy-number">01</div>
+                    <h3>Chất Lượng Là Trên Hết</h3>
+                    <p>Chúng tôi không bao giờ thỏa hiệp với chất lượng. Mỗi con gà đều được chọn lọc kỹ càng, tươi mới mỗi ngày, ướp theo công thức độc quyền và chiên trong dầu sạch thay mới thường xuyên. Sự an toàn và sức khỏe của khách hàng là danh dự của KONDAE.</p>
+                </div>
+                <div class="philosophy-item">
+                    <div class="philosophy-number">02</div>
+                    <h3>Hương Vị Nguyên Bản</h3>
+                    <p>Nước sốt của KONDAE được nhập trực tiếp từ Hàn Quốc hoặc pha chế tại chỗ theo công thức truyền thống, đảm bảo mỗi miếng gà đều mang hương vị đích thực của xứ sở Kim Chi. Chúng tôi mang cả văn hóa ẩm thực đường phố Seoul đến bàn ăn của bạn.</p>
+                </div>
+                <div class="philosophy-item">
+                    <div class="philosophy-number">03</div>
+                    <h3>Trải Nghiệm Trọn Vẹn</h3>
+                    <p>Không gian nhà hàng được thiết kế ấm cúng, nhân viên thân thiện, và dịch vụ nhanh chóng. Mỗi bữa ăn tại KONDAE không chỉ là ăn uống mà còn là một trải nghiệm đáng nhớ, nơi bạn có thể thư giãn và kết nối cùng bạn bè, gia đình.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="commitment section-padding">
+        <div class="container">
+            <div class="commitment-content">
+                <div class="commitment-image" id="team-image-container"></div>
+                <div class="commitment-text">
+                    <h2>Cam Kết Của Chúng Tôi</h2>
+                    <ul class="commitment-list" id="commitment-list"></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title">Góc Check-in Tại KONDAE</h2>
+            <p class="section-subtitle">Chia sẻ khoảnh khắc của bạn với hashtag #KONDAECHICKENVIETTRI</p>
+            <div class="gallery-grid" id="gallery-grid"></div>
+        </div>
+    </section>
+
+    <section class="menu-cta section-padding">
+        <div class="container text-center">
+            <h2 class="section-title">Hãy Trở Thành Một Phần Của Câu Chuyện</h2>
+            <p class="section-subtitle">Đặt bàn ngay hôm nay và trải nghiệm hương vị Hàn Quốc đích thực!</p>
+            <div class="hero-cta mt-4">
+                <a href="contact.html" class="btn btn-primary">Đặt Bàn Ngay</a>
+                <a href="menu.html" class="btn btn-secondary">Xem Thực Đơn</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <img src="img/logo.png" alt="KONDAE CHICKEN Logo">
+                    <p style="margin-top: 15px;">Mang hương vị Hàn Quốc đến gần hơn với mọi người.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Liên Kết</h4>
+                    <ul>
+                        <li><a href="index.html">Trang Chủ</a></li>
+                        <li><a href="menu.html">Thực Đơn</a></li>
+                        <li><a href="story.html">Câu Chuyện</a></li>
+                        <li><a href="contact.html">Liên Hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Liên Hệ</h4>
+                    <p>Địa chỉ: Số 6, Hùng Duệ Vương, KĐT Láng Cầu, TP. Việt Trì, Việt Nam, 170000</p>
+                    <p>Điện thoại/Zalo: <a href="tel:+84347520628" style="color: var(--secondary-color); font-weight: bold;">+84 34 752 0628</a></p>
+                    <p>Email: <a href="mailto:kondaechickenviettri@info.com">kondaechickenviettri@info.com</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 KONDAE CHICKEN. Bảo lưu mọi quyền.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+backend:
+  name: github
+  repo: NguyenVietAn/kondae-chicken
+  branch: main
+
+media_folder: "img/uploads"
+public_folder: "img/uploads"
+
+logout_redirect_url: "https://nguyenvietan.github.io/kondae-chicken/index.html"
+site_url: "https://nguyenvietan.github.io/kondae-chicken"
+
+collections:
+  - name: "menu"
+    label: "Quản Lý Thực Đơn"
+    files:
+      - name: "menu_list"
+        label: "Danh Sách Món Ăn"
+        file: "data/menu.json"
+        fields:
+          - name: "items"
+            label: "Các món ăn"
+            widget: "list"
+            fields:
+              - { name: "name", label: "Tên món", widget: "string", required: true }
+              - { name: "category", label: "Danh mục", widget: "select",
+                  options: ["chicken", "combo", "sides", "rice-soup", "drinks"] }
+              - { name: "description", label: "Mô tả", widget: "text", required: false }
+              - { name: "price", label: "Giá hiển thị (VD: 160K)", widget: "string", required: true }
+              - { name: "image", label: "Hình ảnh", widget: "image", required: false }
+              - { name: "is_visible", label: "Hiển thị", widget: "boolean", default: true }
+
+  - name: "promotions"
+    label: "Quản Lý Khuyến Mãi"
+    files:
+      - name: "promo_list"
+        label: "Danh Sách Khuyến Mãi"
+        file: "data/promotions.json"
+        fields:
+          - name: "items"
+            label: "Các chương trình"
+            widget: "list"
+            fields:
+              - { name: "title", label: "Tiêu đề", widget: "string", required: true }
+              - { name: "content", label: "Nội dung", widget: "text", required: false }
+              - { name: "promo_code", label: "Mã ưu đãi", widget: "string", required: false }
+              - { name: "is_active", label: "Đang áp dụng", widget: "boolean", default: true }
+
+  - name: "gallery"
+    label: "Quản Lý Ảnh/Video Check-in"
+    files:
+      - name: "gallery_list"
+        label: "Thư viện Check-in"
+        file: "data/gallery.json"
+        fields:
+          - name: "items"
+            label: "Các ảnh/video"
+            widget: "list"
+            fields:
+              - { name: "title", label: "Tiêu đề", widget: "string", required: true }
+              - { name: "media", label: "Tệp ảnh/Video", widget: "file", required: true }
+              - { name: "media_type", label: "Loại", widget: "select", options: ["image", "video"], default: "image" }
+
+  - name: "story"
+    label: "Trang Câu Chuyện"
+    files:
+      - name: "story_page"
+        label: "Nội Dung Trang"
+        file: "data/story.json"
+        fields:
+          - { name: "hero_title", label: "Tiêu đề lớn", widget: "string" }
+          - { name: "hero_subtitle", label: "Tiêu đề phụ", widget: "string" }
+          - { name: "story_heading", label: "Tiêu đề phần nội dung", widget: "string" }
+          - { name: "story_paragraphs", label: "Các đoạn văn", widget: "list", field: { name: "paragraph", label: "Đoạn văn", widget: "text" } }
+          - { name: "story_image", label: "Ảnh minh họa", widget: "image", required: false }
+          - { name: "story_video", label: "Video (nếu có)", widget: "file", required: false }
+          - { name: "team_image", label: "Ảnh đội ngũ nhân sự", widget: "image", required: false }
+          - { name: "commitments", label: "Danh sách cam kết", widget: "list", field: { name: "item", label: "Cam kết", widget: "string" } }

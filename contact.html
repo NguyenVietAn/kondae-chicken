@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hệ & Đặt Bàn - KONDAE CHICKEN</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-banner">
+            <a href="index.html">KONDAE CHICKEN</a>
+        </div>
+        <div class="nav-banner">
+            <div class="container nav-container">
+                <nav class="main-nav-desktop">
+                    <a href="index.html">Trang Chủ</a>
+                    <a href="menu.html">Thực Đơn</a>
+                    <a href="story.html">Câu Chuyện</a>
+                    <a href="contact.html" class="active">Liên Hệ & Đặt Bàn</a>
+                    <a href="admin/" class="admin-link" title="Đăng nhập quản trị">🔑 Quản Trị</a>
+                </nav>
+                <button class="menu-toggle" aria-label="Mở menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+        <nav class="mobile-nav-overlay">
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="menu.html">Thực Đơn</a></li>
+                <li><a href="story.html">Câu Chuyện</a></li>
+                <li><a href="contact.html" class="active">Liên Hệ & Đặt Bàn</a></li>
+                <li><a href="admin/" style="font-size: 1.2rem; opacity: 0.7;">🔑 Đăng Nhập Quản Trị</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Liên Hệ & Đặt Bàn</h1>
+            <p>Chúng tôi luôn sẵn sàng phục vụ bạn</p>
+        </div>
+    </section>
+
+    <section class="contact-info section-padding">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3>Địa Chỉ</h3>
+                    <p>Số 6, Hùng Duệ Vương, KĐT Láng Cầu,<br>TP. Việt Trì, Việt Nam, 170000</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Điện Thoại / Zalo</h3>
+                    <p><a href="tel:+84347520628">+84 34 752 0628</a></p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">🕒</div>
+                    <h3>Giờ Mở Cửa</h3>
+                    <p>Thứ 2 - Chủ Nhật<br>10:00 - 22:00</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">✉️</div>
+                    <h3>Email</h3>
+                    <p><a href="mailto:kondaechickenviettri@info.com">kondaechickenviettri@info.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-section section-padding bg-cream">
+        <div class="container">
+            <div class="booking-grid">
+                
+                <div class="booking-form-container">
+                    <h2>Đặt Bàn Trực Tuyến</h2>
+                    <p>Điền thông tin, hệ thống sẽ sao chép nội dung để bạn dán vào kênh liên hệ đã chọn.</p>
+                    <form id="booking-form" class="booking-form" novalidate>
+                        <div class="form-group">
+                            <label for="booking-name">Họ và tên <span class="required">*</span></label>
+                            <input type="text" id="booking-name" name="name" required minlength="2" maxlength="100" placeholder="Nguyễn Văn A" autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="booking-phone">Số điện thoại <span class="required">*</span></label>
+                            <input type="tel" id="booking-phone" name="phone" required pattern="[0-9]{10,11}" placeholder="0901234567" autocomplete="tel">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="booking-date">Ngày <span class="required">*</span></label>
+                                <input type="date" id="booking-date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="booking-time">Giờ <span class="required">*</span></label>
+                                <input type="time" id="booking-time" name="time" required min="10:00" max="21:30">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="booking-guests">Số người <span class="required">*</span></label>
+                            <select id="booking-guests" name="guests" required>
+                                <option value="">-- Chọn số người --</option>
+                                <option value="1">1 người</option>
+                                <option value="2">2 người</option>
+                                <option value="3">3 người</option>
+                                <option value="4">4 người</option>
+                                <option value="5">5 người</option>
+                                <option value="6">6 người</option>
+                                <option value="7">7 người</option>
+                                <option value="8">8 người</option>
+                                <option value="9+">Trên 8 người</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="booking-note">Ghi chú</label>
+                            <textarea id="booking-note" name="note" rows="3" maxlength="300" placeholder="Ví dụ: Bàn gần cửa sổ..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Chọn kênh liên hệ <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-label"><input type="radio" name="contact-channel" value="zalo" checked> Zalo</label>
+                                <label class="radio-label"><input type="radio" name="contact-channel" value="facebook"> Facebook</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Tạo Tin Nhắn Đặt Bàn</button>
+                    </form>
+                </div>
+
+                <div class="booking-form-container">
+                    <h2>Đặt Ship (Giao Hàng)</h2>
+                    <p>Điền thông tin, hệ thống sẽ sao chép đơn hàng để bạn gửi qua kênh liên hệ đã chọn.</p>
+                    <form id="delivery-form" class="booking-form" novalidate>
+                        <div class="form-group">
+                            <label for="delivery-name">Họ và tên <span class="required">*</span></label>
+                            <input type="text" id="delivery-name" name="name" required minlength="2" maxlength="100" placeholder="Nguyễn Văn A" autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery-phone">Số điện thoại <span class="required">*</span></label>
+                            <input type="tel" id="delivery-phone" name="phone" required pattern="[0-9]{10,11}" placeholder="0901234567" autocomplete="tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery-address">Địa chỉ giao hàng <span class="required">*</span></label>
+                            <textarea id="delivery-address" name="address" required minlength="10" maxlength="300" rows="2" placeholder="Số nhà, đường, phường..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery-items">Món muốn đặt <span class="required">*</span></label>
+                            <textarea id="delivery-items" name="items" required maxlength="500" rows="3" placeholder="Ví dụ: 1 Gà sốt Hàn không xương + 1 Khoai tây chiên"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery-note">Ghi chú thêm</label>
+                            <textarea id="delivery-note" name="note" rows="2" maxlength="300" placeholder="Ít cay, giao trước 7h tối..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Chọn kênh liên hệ <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-label"><input type="radio" name="contact-channel" value="zalo" checked> Zalo</label>
+                                <label class="radio-label"><input type="radio" name="contact-channel" value="facebook"> Facebook</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Tạo Tin Nhắn Đặt Ship</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="container">
+            <h2 class="section-title">Vị Trí Nhà Hàng</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3715.891234!2d105.398!3d21.312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDE4JzQzLjIiTiAxMDXCsDIzJzUyLjgiRQ!5e0!3m2!1svi!2s!4v1234567890" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ KONDAE CHICKEN Việt Trì"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="other-contacts section-padding bg-light">
+        <div class="container text-center">
+            <h2 class="section-title">Kênh Liên Hệ Khác</h2>
+            <p class="section-subtitle">Theo dõi chúng tôi để cập nhật khuyến mãi mới nhất</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1Ja61uugF7/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-btn facebook">Facebook</a>
+                <a href="https://zalo.me/0347520628" target="_blank" rel="noopener noreferrer" class="social-btn zalo">Zalo</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <img src="img/logo.png" alt="KONDAE CHICKEN Logo">
+                    <p style="margin-top: 15px;">Mang hương vị Hàn Quốc đến gần hơn với mọi người.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Liên Kết</h4>
+                    <ul>
+                        <li><a href="index.html">Trang Chủ</a></li>
+                        <li><a href="menu.html">Thực Đơn</a></li>
+                        <li><a href="story.html">Câu Chuyện</a></li>
+                        <li><a href="contact.html">Liên Hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Liên Hệ</h4>
+                    <p>Địa chỉ: Số 6, Hùng Duệ Vương, KĐT Láng Cầu, TP. Việt Trì, Việt Nam, 170000</p>
+                    <p>Điện thoại/Zalo: <a href="tel:+84347520628" style="color: var(--secondary-color); font-weight: bold;">+84 34 752 0628</a></p>
+                    <p>Email: <a href="mailto:kondaechickenviettri@info.com">kondaechickenviettri@info.com</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 KONDAE CHICKEN. Bảo lưu mọi quyền.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>
