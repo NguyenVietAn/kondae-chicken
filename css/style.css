@@ -56,7 +56,7 @@ ul { list-style: none; }
 .btn-block { width: 100%; }
 
 /* ==================================================
-   4. HEADER & LOGO (FIX LỖI HIỂN THỊ CHUẨN)
+   4. HEADER & LOGO (FIX CHUẨN ĐẸP)
    ================================================== */
 .logo-banner {
     width: 100%;
@@ -64,16 +64,15 @@ ul { list-style: none; }
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0; 
+    padding: 10px 0; /* Tạo khoảng trắng trên dưới */
 }
-.logo-banner a { display: block; width: 100%; text-align: center; }
-/* Ép ảnh hiển thị đúng tỷ lệ, không bị cắt, không bị mất */
+.logo-banner a { display: flex; justify-content: center; width: 100%; }
 .logo-banner img {
     width: 100%;
+    max-width: 800px; /* Giới hạn chiều rộng để logo không bị bè ra quá mức */
     height: auto;
-    max-height: 150px; /* Giới hạn chiều cao trên PC */
-    object-fit: contain; /* Giữ toàn bộ ảnh, không cắt chữ */
-    margin: 0 auto;
+    max-height: 120px; /* Giới hạn chiều cao để không chiếm quá nhiều màn hình */
+    object-fit: contain;
 }
 
 .nav-banner { background-color: var(--primary-color); position: sticky; top: 0; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -235,5 +234,5 @@ ul { list-style: none; }
     .filter-btn { flex-shrink: 0; }
     .booking-form-container { padding: var(--spacing-lg); }
     .promo-banner { padding: var(--spacing-lg) var(--spacing-md); }
-    .logo-banner img { max-height: 80px; } /* Logo thu nhỏ trên đt */
+    .logo-banner img { max-height: 80px; }
 }

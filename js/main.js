@@ -18,7 +18,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. TẢI DỮ LIỆU THỰC ĐƠN (Có chống cache)
+    // 2. HÀM XỬ LÝ ĐƯỜNG DẪN ẢNH (XÓA DẤU GẠCH CHÉO ĐẦU ĐỂ FIX LỖI GITHUB PAGES)
+    function fixImagePath(path) {
+        if (!path) return 'img/hero.webp'; 
+        // Nếu ảnh là link ngoài (http) thì giữ nguyên
+        if (path.startsWith('http')) return path;
+        // Xóa dấu / ở đầu nếu có
+        let cleanPath = path.replace(/^\//, '');
+        // Nếu CMS lưu thiếu thư mục img, tự động thêm vào
+        if (!cleanPath.startsWith('img/')) {
+            cleanPath = 'img/uploads/' + cleanPath;
+        }
+        return cleanPath;
+    }
+
+    // 3. TẢI DỮ LIỆU THỰC ĐƠN
     async function loadMenuData() {
         const menuGrid = document.getElementById('menu-grid');
         if (!menuGrid) return;
@@ -30,19 +44,15 @@ document.addEventListener('DOMContentLoaded', function() {
             menuGrid.innerHTML = '';
             data.items.forEach(item => {
                 if (item.is_visible === false) return;
+                
+                let imgSrc = fixImagePath(item.image);
+
                 const div = document.createElement('div');
                 div.className = 'menu-item';
                 div.dataset.category = item.category;
-                
-                // Xử lý đường dẫn ảnh an toàn (nếu CMS lưu thiếu /img/ thì tự bù vào)
-                let imgSrc = item.image;
-                if (imgSrc && !imgSrc.startsWith('http') && !imgSrc.startsWith('img/')) {
-                    imgSrc = 'img/uploads/' + imgSrc; 
-                }
-
                 div.innerHTML = `
                     <div class="menu-item-img">
-                        <img src="${imgSrc}" alt="${item.name}" loading="lazy" onerror="this.src='img/hero.webp'">
+                        <img src="${imgSrc}" alt="${item.name}" loading="lazy">
                     </div>
                     <div class="menu-item-info">
                         <div class="menu-item-header">
@@ -55,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 menuGrid.appendChild(div);
             });
             setupMenuFilter();
+            console.log("✅ Đã tải xong menu!");
         } catch (error) { 
             console.error('❌ Lỗi tải menu:', error); 
         }
@@ -82,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 3. TẢI TRANG CÂU CHUYỆN (Có chống cache)
+    // 4. TẢI TRANG CÂU CHUYỆN
     async function loadStoryData() {
         if (!document.getElementById('story-heading')) return;
         try {
@@ -106,18 +117,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const mediaContainer = document.getElementById('story-media-container');
             mediaContainer.innerHTML = '';
             if (data.story_video) {
-                mediaContainer.innerHTML = `<video src="${data.story_video}" controls style="width:100%; border-radius:var(--border-radius);"></video>`;
+                mediaContainer.innerHTML = `<video src="${fixImagePath(data.story_video)}" controls style="width:100%; border-radius:var(--border-radius);"></video>`;
             } else if (data.story_image) {
-                let imgSrc = data.story_image;
-                if (!imgSrc.startsWith('http') && !imgSrc.startsWith('img/')) imgSrc = 'img/uploads/' + imgSrc;
-                mediaContainer.innerHTML = `<img src="${imgSrc}" alt="Câu chuyện KONDAE" loading="lazy">`;
+                mediaContainer.innerHTML = `<img src="${fixImagePath(data.story_image)}" alt="Câu chuyện KONDAE" loading="lazy">`;
             }
             const teamContainer = document.getElementById('team-image-container');
             teamContainer.innerHTML = '';
             if (data.team_image) {
-                let imgSrc = data.team_image;
-                if (!imgSrc.startsWith('http') && !imgSrc.startsWith('img/')) imgSrc = 'img/uploads/' + imgSrc;
-                teamContainer.innerHTML = `<img src="${imgSrc}" alt="Đội ngũ KONDAE" loading="lazy">`;
+                teamContainer.innerHTML = `<img src="${fixImagePath(data.team_image)}" alt="Đội ngũ KONDAE" loading="lazy">`;
             }
             const commitmentList = document.getElementById('commitment-list');
             commitmentList.innerHTML = '';
@@ -134,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 4. TẢI KHUYẾN MÃI (Có chống cache)
+    // 5. TẢI KHUYẾN MÃI
     async function loadPromotionData() {
         const container = document.getElementById('promotion-container');
         if (!container) return;
@@ -164,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 5. TẢI GALLERY (Có chống cache)
+    // 6. TẢI GALLERY
     async function loadGalleryData() {
         const galleryGrid = document.getElementById('gallery-grid');
         if (!galleryGrid) return;
@@ -177,8 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.items) {
                 data.items.forEach(item => {
                     const wrapper = document.createElement('div');
-                    let mediaSrc = item.media;
-                    if (!mediaSrc.startsWith('http') && !mediaSrc.startsWith('img/')) mediaSrc = 'img/uploads/' + mediaSrc;
+                    let mediaSrc = fixImagePath(item.media);
 
                     if (item.media_type === 'video') {
                         wrapper.innerHTML = `<video src="${mediaSrc}" controls style="width:100%; height:300px; object-fit:cover; border-radius:var(--border-radius);"></video>`;
@@ -193,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 6. XỬ LÝ FORM ĐẶT HÀNG
+    // 7. XỬ LÝ FORM ĐẶT HÀNG
     const SDT_ZALO = '0347520628';
     const LINK_FACEBOOK = 'https://www.facebook.com/share/1Ja61uugF7/?mibextid=wwXIfr';
 
