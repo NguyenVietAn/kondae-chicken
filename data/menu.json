@@ -23,6 +23,14 @@
       "price": "40K",
       "image": "/img/uploads/nuoc-gao.webp",
       "is_visible": true
+    },
+    {
+      "name": "Coca-Sprite",
+      "category": "drinks",
+      "description": "",
+      "price": "15K",
+      "image": "/img/uploads/product5.jpg",
+      "is_visible": true
     }
   ]
 }
