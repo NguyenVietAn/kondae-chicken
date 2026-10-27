@@ -18,14 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. HÀM XỬ LÝ ĐƯỜNG DẪN ẢNH (XÓA DẤU GẠCH CHÉO ĐẦU ĐỂ FIX LỖI GITHUB PAGES)
+    // 2. HÀM XỬ LÝ ĐƯỜNG DẪN ẢNH
     function fixImagePath(path) {
         if (!path) return 'img/hero.webp'; 
-        // Nếu ảnh là link ngoài (http) thì giữ nguyên
         if (path.startsWith('http')) return path;
-        // Xóa dấu / ở đầu nếu có
         let cleanPath = path.replace(/^\//, '');
-        // Nếu CMS lưu thiếu thư mục img, tự động thêm vào
         if (!cleanPath.startsWith('img/')) {
             cleanPath = 'img/uploads/' + cleanPath;
         }
@@ -44,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
             menuGrid.innerHTML = '';
             data.items.forEach(item => {
                 if (item.is_visible === false) return;
-                
                 let imgSrc = fixImagePath(item.image);
 
                 const div = document.createElement('div');
@@ -65,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 menuGrid.appendChild(div);
             });
             setupMenuFilter();
-            console.log("✅ Đã tải xong menu!");
         } catch (error) { 
             console.error('❌ Lỗi tải menu:', error); 
         }
@@ -141,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 5. TẢI KHUYẾN MÃI
+    // 5. TẢI KHUYẾN MÃI (CẬP NHẬT HIỂN THỊ NHIỀU CHƯƠNG TRÌNH)
     async function loadPromotionData() {
         const container = document.getElementById('promotion-container');
         if (!container) return;
@@ -151,18 +146,31 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!res.ok) throw new Error(`Lỗi HTTP: ${res.status}`);
             const data = await res.json();
             
+            // Lọc tất cả các chương trình đang bật
             const activePromos = data.items.filter(promo => promo.is_active === true);
 
             if (activePromos.length > 0) {
-                const promo = activePromos[0];
-                container.innerHTML = `
-                    <div class="promo-banner">
-                        <h2>${promo.title}</h2>
-                        <p>${promo.content}</p>
-                        ${promo.promo_code ? `<p class="promo-code">Mã ưu đãi: <strong>${promo.promo_code}</strong></p>` : ''}
-                        <a href="contact.html" class="btn btn-secondary">Đặt Bàn Ngay</a>
-                    </div>
-                `;
+                container.innerHTML = ''; // Xóa nội dung cũ
+                
+                // Tạo một container cho các banner
+                const wrapper = document.createElement('div');
+                wrapper.style.display = 'flex';
+                wrapper.style.flexDirection = 'column';
+                wrapper.style.gap = '20px'; // Khoảng cách giữa các banner
+
+                activePromos.forEach(promo => {
+                    const promoHTML = `
+                        <div class="promo-banner">
+                            <h2>${promo.title}</h2>
+                            <p>${promo.content}</p>
+                            ${promo.promo_code ? `<p class="promo-code">Mã ưu đãi: <strong>${promo.promo_code}</strong></p>` : ''}
+                            <a href="contact.html" class="btn btn-secondary">Đặt Bàn Ngay</a>
+                        </div>
+                    `;
+                    wrapper.innerHTML += promoHTML;
+                });
+                
+                container.appendChild(wrapper);
             } else {
                 container.parentElement.style.display = 'none';
             }
@@ -199,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 7. XỬ LÝ FORM ĐẶT HÀNG
+    // 7. XỬ LÝ FORM ĐẶT HÀNG (Giữ nguyên)
     const SDT_ZALO = '0347520628';
     const LINK_FACEBOOK = 'https://www.facebook.com/share/1Ja61uugF7/?mibextid=wwXIfr';
 
