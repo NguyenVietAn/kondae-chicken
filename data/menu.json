@@ -15,6 +15,14 @@
       "price": "160K - 170K",
       "image": "img/food/ga-sot-han.webp",
       "is_visible": true
+    },
+    {
+      "name": "Nước gạo 500ml",
+      "category": "drinks",
+      "description": "Nước gạo 500ml",
+      "price": "40K",
+      "image": "/img/uploads/nuoc-gao.webp",
+      "is_visible": true
     }
   ]
 }
