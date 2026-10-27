@@ -5,6 +5,12 @@
       "content": "Áp dụng cho hóa đơn từ 500.000đ.",
       "promo_code": "KONDAE15",
       "is_active": true
+    },
+    {
+      "title": "Giảm 10% khi đặt bàn trực tuyến",
+      "content": "Áp dụng cho hóa đơn từ 300.000đ.",
+      "promo_code": "KONDAE10",
+      "is_active": true
     }
   ]
 }
