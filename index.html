@@ -14,7 +14,9 @@
 <body>
     <header>
         <div class="logo-banner">
-            <a href="index.html">KONDAE CHICKEN</a>
+            <a href="index.html">
+                <img src="img/logo.png" alt="KONDAE CHICKEN Logo">
+            </a>
         </div>
         <div class="nav-banner">
             <div class="container nav-container">
@@ -98,14 +100,10 @@
         </div>
     </section>
 
+    <!-- Phần Khuyến mãi động (Sẽ được JS tự động render từ promotions.json) -->
     <section class="promotion section-padding">
         <div class="container">
-            <div class="promo-banner">
-                <h2>Ưu Đãi Đặc Biệt</h2>
-                <p>Giảm 10% cho hóa đơn từ 300.000đ khi đặt bàn trực tuyến!</p>
-                <p class="promo-code">Mã ưu đãi: <strong>KONDAE10</strong></p>
-                <a href="contact.html" class="btn btn-secondary">Đặt Bàn Ngay</a>
-            </div>
+            <div id="promotion-container"></div>
         </div>
     </section>
 

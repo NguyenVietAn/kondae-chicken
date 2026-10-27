@@ -56,46 +56,94 @@ ul { list-style: none; }
 .btn-block { width: 100%; }
 
 /* ==================================================
-   4. HEADER & LOGO (FIX LỖI CẮT CHỮ)
+    4. HEADER & ĐIỀU HƯỚNG (Thiết kế mới toàn diện)
    ================================================== */
+
+/* 4.1 Phần Logo (Phủ kín 100% chiều ngang) */
 .logo-banner {
     width: 100%;
     background-color: var(--bg-white); /* Nền trắng để logo nổi bật */
+    display: block;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+.logo-banner a { display: block; width: 100%; line-height: 0; }
+/* Ảnh logo giãn 100% chiều ngang. Lưu ý: File ảnh phải là dạng banner ngang */
+.logo-banner img { 
+    width: 100%; 
+    height: auto; 
+    display: block; 
+    object-fit: cover; /* Cắt phần thừa nếu cần để phủ kín */
+    max-height: 150px; /* Giới hạn chiều cao trên desktop để không chiếm quá nhiều diện tích */
+}
+
+/* 4.2 Thanh Menu (Dính trên cùng khi cuộn) */
+.nav-banner {
+    background-color: var(--primary-color);
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.nav-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px 0; /* Khoảng trắng trên dưới để logo không bị sát mép */
-}
-.logo-banner a { display: block; width: 100%; display: flex; justify-content: center; }
-.logo-banner img {
-    width: 100%;
-    max-height: 140px; /* Giới hạn chiều cao trên PC */
-    object-fit: contain; /* Đảm bảo TOÀN BỘ ảnh hiển thị, không bị cắt */
-    transition: var(--transition);
+    height: 60px;
 }
 
-.nav-banner { background-color: var(--primary-color); position: sticky; top: 0; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-.nav-container { display: flex; justify-content: space-between; align-items: center; height: 60px; }
-
-.main-nav-desktop { display: flex; gap: var(--spacing-lg); flex: 1; align-items: center; }
-.main-nav-desktop a { font-weight: 500; color: rgba(255, 255, 255, 0.9); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; position: relative; padding: 10px 0; }
+/* Menu Desktop (Hiển thị trên màn hình lớn) */
+.main-nav-desktop { display: flex; gap: var(--spacing-lg); }
+.main-nav-desktop a { 
+    font-weight: 500; color: rgba(255, 255, 255, 0.9); 
+    font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px;
+    position: relative; padding: 10px 0;
+}
 .main-nav-desktop a:hover, .main-nav-desktop a.active { color: var(--secondary-color); }
-.main-nav-desktop a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--secondary-color); transform: scaleX(0); transition: var(--transition); transform-origin: right; }
+.main-nav-desktop a::after { 
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; 
+    background-color: var(--secondary-color); transform: scaleX(0); transition: var(--transition); transform-origin: right;
+}
 .main-nav-desktop a:hover::after, .main-nav-desktop a.active::after { transform: scaleX(1); transform-origin: left; }
 
-.admin-link { margin-left: auto; font-size: 0.85rem !important; opacity: 0.7; }
-.admin-link:hover { opacity: 1 !important; color: var(--secondary-color) !important; }
-
-.menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; background: transparent; border: none; cursor: pointer; z-index: 10001; }
-.menu-toggle span { display: block; width: 100%; height: 3px; background-color: white; transition: all 0.4s ease; border-radius: 2px; }
+/* Nút Hamburger 3 gạch (Mặc định ẩn trên Desktop) */
+.menu-toggle { 
+    display: none; 
+    flex-direction: column; 
+    justify-content: space-between;
+    width: 30px; 
+    height: 21px; 
+    background: transparent; 
+    border: none; 
+    cursor: pointer; 
+    z-index: 10001; /* Đảm bảo nằm trên menu overlay */
+}
+.menu-toggle span { 
+    display: block; width: 100%; height: 3px; 
+    background-color: white; transition: all 0.4s ease; border-radius: 2px;
+}
+/* Hiệu ứng biến thành chữ X */
 .menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); background-color: var(--secondary-color); }
 .menu-toggle.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
 .menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); background-color: var(--secondary-color); }
 
-.mobile-nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: rgba(17, 17, 17, 0.98); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; opacity: 0; visibility: hidden; transform: translateY(-20px); transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+/* Menu Mobile Overlay (Toàn màn hình) */
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background-color: rgba(17, 17, 17, 0.98); /* Nền đen mờ sang trọng */
+    backdrop-filter: blur(10px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    z-index: 10000;
+    opacity: 0; visibility: hidden; transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 .mobile-nav-overlay.active { opacity: 1; visibility: visible; transform: translateY(0); }
 .mobile-nav-overlay ul { display: flex; flex-direction: column; gap: 30px; text-align: center; }
-.mobile-nav-overlay a { font-family: var(--font-heading); font-size: 1.8rem; color: white; font-weight: 700; }
+.mobile-nav-overlay a { 
+    font-family: var(--font-heading); font-size: 1.8rem; color: white; font-weight: 700; 
+}
 .mobile-nav-overlay a:hover, .mobile-nav-overlay a.active { color: var(--secondary-color); }
 
 /* ==================================================
@@ -214,7 +262,7 @@ ul { list-style: none; }
 .footer-bottom { border-top: 1px solid #333; text-align: center; padding: var(--spacing-lg) 0; font-size: 0.9rem; }
 
 /* ==================================================
-   11. RESPONSIVE (TỐI ƯU TABLET & MOBILE)
+   11. RESPONSIVE
    ================================================== */
 @media (max-width: 1024px) {
     .menu-toggle { display: flex; }
@@ -223,13 +271,10 @@ ul { list-style: none; }
     .commitment-image { order: -1; }
     .menu-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--spacing-lg); }
     .form-row { grid-template-columns: 1fr; gap: 0; }
-    .logo-banner img { max-height: 100px; }
 }
 @media (max-width: 768px) {
     .container { padding: 0 var(--spacing-md); }
     .section-padding { padding: var(--spacing-lg) 0; }
-    .logo-banner { padding: 5px 0; }
-    .logo-banner img { max-height: 70px; }
     .nav-container { justify-content: flex-end; padding-right: 15px; }
     .filter-buttons { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: var(--spacing-sm); -webkit-overflow-scrolling: touch; }
     .filter-buttons::-webkit-scrollbar { display: none; }

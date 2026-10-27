@@ -15,14 +15,6 @@
       "price": "160K - 170K",
       "image": "img/food/ga-sot-han.webp",
       "is_visible": true
-    },
-    {
-      "name": "Couple Combo",
-      "category": "combo",
-      "description": "Gà mix 2 vị, Kimbap, Khoai tây chiên, 2 nước.",
-      "price": "275K",
-      "image": "img/food/combo-couple.webp",
-      "is_visible": true
     }
   ]
 }

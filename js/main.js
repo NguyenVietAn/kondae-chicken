@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    // 1. MENU 3 GẠCH (MOBILE)
+    // 1. MENU MOBILE
     const menuToggle = document.querySelector('.menu-toggle');
     const mobileNav = document.querySelector('.mobile-nav-overlay');
     if (menuToggle && mobileNav) {
@@ -18,13 +18,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. TẢI DỮ LIỆU THỰC ĐƠN TỪ JSON
+    // 2. TẢI DỮ LIỆU THỰC ĐƠN
     async function loadMenuData() {
         const menuGrid = document.getElementById('menu-grid');
         if (!menuGrid) return;
         try {
             const res = await fetch(`data/menu.json?v=${new Date().getTime()}`);
+            if (!res.ok) throw new Error(`Lỗi HTTP: ${res.status}`);
             const data = await res.json();
+            
+            if (!data.items || !Array.isArray(data.items)) {
+                throw new Error("Cấu trúc file menu.json không đúng (thiếu mảng 'items').");
+            }
+
             menuGrid.innerHTML = '';
             data.items.forEach(item => {
                 if (item.is_visible === false) return;
@@ -46,7 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 menuGrid.appendChild(div);
             });
             setupMenuFilter();
-        } catch (error) { console.error('Lỗi tải menu:', error); }
+            console.log("✅ Tải dữ liệu Thực đơn thành công!");
+        } catch (error) { 
+            console.error('❌ Lỗi tải menu:', error); 
+        }
     }
 
     function setupMenuFilter() {
@@ -71,15 +80,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 3. TẢI DỮ LIỆU TRANG CÂU CHUYỆN TỪ JSON
+    // 3. TẢI DỮ LIỆU TRANG CÂU CHUYỆN
     async function loadStoryData() {
         if (!document.getElementById('story-heading')) return;
         try {
             const res = await fetch(`data/story.json?v=${new Date().getTime()}`);
+            if (!res.ok) throw new Error(`Lỗi HTTP: ${res.status}`);
             const data = await res.json();
+            
             document.getElementById('story-hero-title').textContent = data.hero_title || '';
             document.getElementById('story-hero-subtitle').textContent = data.hero_subtitle || '';
             document.getElementById('story-heading').textContent = data.story_heading || '';
+            
             const pContainer = document.getElementById('story-paragraphs');
             pContainer.innerHTML = '';
             if (data.story_paragraphs) {
@@ -111,30 +123,76 @@ document.addEventListener('DOMContentLoaded', function() {
                     commitmentList.appendChild(li);
                 });
             }
-        } catch (error) { console.error('Lỗi tải câu chuyện:', error); }
+            console.log("✅ Tải dữ liệu Câu chuyện thành công!");
+        } catch (error) { 
+            console.error('❌ Lỗi tải câu chuyện:', error); 
+        }
     }
 
-    // 4. TẢI DỮ LIỆU GALLERY
+    // 4. TẢI DỮ LIỆU KHUYẾN MÃI
+    async function loadPromotionData() {
+        const container = document.getElementById('promotion-container');
+        if (!container) return;
+
+        try {
+            const res = await fetch(`data/promotions.json?v=${new Date().getTime()}`);
+            if (!res.ok) throw new Error(`Lỗi HTTP: ${res.status}`);
+            const data = await res.json();
+            
+            if (!data.items || !Array.isArray(data.items)) {
+                throw new Error("Cấu trúc file promotions.json không đúng (thiếu mảng 'items').");
+            }
+
+            const activePromos = data.items.filter(promo => promo.is_active === true);
+
+            if (activePromos.length > 0) {
+                const promo = activePromos[0];
+                container.innerHTML = `
+                    <div class="promo-banner">
+                        <h2>${promo.title}</h2>
+                        <p>${promo.content}</p>
+                        ${promo.promo_code ? `<p class="promo-code">Mã ưu đãi: <strong>${promo.promo_code}</strong></p>` : ''}
+                        <a href="contact.html" class="btn btn-secondary">Đặt Bàn Ngay</a>
+                    </div>
+                `;
+                console.log("✅ Tải dữ liệu Khuyến mãi thành công!");
+            } else {
+                container.parentElement.style.display = 'none';
+                console.log("ℹ️ Không có khuyến mãi nào đang bật.");
+            }
+        } catch (error) { 
+            console.error('❌ Lỗi tải khuyến mãi:', error); 
+        }
+    }
+
+    // 5. TẢI GALLERY
     async function loadGalleryData() {
         const galleryGrid = document.getElementById('gallery-grid');
         if (!galleryGrid) return;
         try {
             const res = await fetch(`data/gallery.json?v=${new Date().getTime()}`);
+            if (!res.ok) throw new Error(`Lỗi HTTP: ${res.status}`);
             const data = await res.json();
+            
             galleryGrid.innerHTML = '';
-            data.items.forEach(item => {
-                const wrapper = document.createElement('div');
-                if (item.media_type === 'video') {
-                    wrapper.innerHTML = `<video src="${item.media}" controls style="width:100%; height:300px; object-fit:cover; border-radius:var(--border-radius);"></video>`;
-                } else {
-                    wrapper.innerHTML = `<img src="${item.media}" alt="${item.title}" loading="lazy">`;
-                }
-                galleryGrid.appendChild(wrapper);
-            });
-        } catch (error) { console.error('Lỗi tải gallery:', error); }
+            if (data.items) {
+                data.items.forEach(item => {
+                    const wrapper = document.createElement('div');
+                    if (item.media_type === 'video') {
+                        wrapper.innerHTML = `<video src="${item.media}" controls style="width:100%; height:300px; object-fit:cover; border-radius:var(--border-radius);"></video>`;
+                    } else {
+                        wrapper.innerHTML = `<img src="${item.media}" alt="${item.title}" loading="lazy">`;
+                    }
+                    galleryGrid.appendChild(wrapper);
+                });
+            }
+            console.log("✅ Tải dữ liệu Gallery thành công!");
+        } catch (error) { 
+            console.error('❌ Lỗi tải gallery:', error); 
+        }
     }
 
-    // 5. XỬ LÝ FORM ĐẶT HÀNG
+    // 6. XỬ LÝ FORM ĐẶT HÀNG (Giữ nguyên)
     const SDT_ZALO = '0347520628';
     const LINK_FACEBOOK = 'https://www.facebook.com/share/1Ja61uugF7/?mibextid=wwXIfr';
 
@@ -241,7 +299,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Kích hoạt tải dữ liệu
     loadMenuData();
     loadStoryData();
     loadGalleryData();
+    loadPromotionData();
 });

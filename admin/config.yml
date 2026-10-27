@@ -22,8 +22,7 @@ collections:
             widget: "list"
             fields:
               - { name: "name", label: "Tên món", widget: "string", required: true }
-              - { name: "category", label: "Danh mục", widget: "select",
-                  options: ["chicken", "combo", "sides", "rice-soup", "drinks"] }
+              - { name: "category", label: "Danh mục", widget: "select", options: ["chicken", "combo", "sides", "rice-soup", "drinks"] }
               - { name: "description", label: "Mô tả", widget: "text", required: false }
               - { name: "price", label: "Giá hiển thị (VD: 160K)", widget: "string", required: true }
               - { name: "image", label: "Hình ảnh", widget: "image", required: false }
