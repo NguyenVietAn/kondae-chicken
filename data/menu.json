@@ -25,11 +25,27 @@
       "is_visible": true
     },
     {
-      "name": "Coca-Sprite",
+      "name": "Coca / Sprite, Trà chanh / Trà tắc",
       "category": "drinks",
-      "description": "",
+      "description": "Giải khát cơ bản",
       "price": "15K",
-      "image": "/img/uploads/product5.jpg",
+      "image": "/img/uploads/nuoc-ngot.webp",
+      "is_visible": true
+    },
+    {
+      "name": "Soda Việt quất / Dâu / Xoài / Chanh / Bạc hà",
+      "category": "drinks",
+      "description": "Soda các vị",
+      "price": "35K",
+      "image": "/img/uploads/soda.jpg",
+      "is_visible": true
+    },
+    {
+      "name": "Gà Lắc Phô Mai",
+      "category": "chicken",
+      "description": "Có xương: 170K | Không xương: 160K",
+      "price": "160K - 170K",
+      "image": "/img/uploads/ga-lac-pho-mai.jpg",
       "is_visible": true
     }
   ]
