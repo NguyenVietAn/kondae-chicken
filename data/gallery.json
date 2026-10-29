@@ -29,6 +29,21 @@
       "title": "Gọi ai?",
       "media": "/img/uploads/checkin-2.webp",
       "media_type": "image"
+    },
+    {
+      "title": "Khách",
+      "media": "/img/uploads/53.jpg",
+      "media_type": "image"
+    },
+    {
+      "title": "Khách",
+      "media": "/img/uploads/51.jpg",
+      "media_type": "image"
+    },
+    {
+      "title": "Khách",
+      "media": "/img/uploads/50.jpg",
+      "media_type": "image"
     }
   ]
 }
